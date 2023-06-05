@@ -1,6 +1,11 @@
 package com.ejm.config;
 
+import com.ejm.code.dto.CodeDTO;
+import com.ejm.code.entity.Code;
+import com.ejm.group.entity.Group;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +21,14 @@ public class MapperConfig {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         modelMapper.getConfiguration().setSkipNullEnabled(true);
+
+        // define converter
+        Converter<Group, Long> groupToGroupId = context -> context.getSource() == null ? null : context.getSource().getId();
+
+        // add property mapping
+        TypeMap<Code, CodeDTO> typeMap = modelMapper.createTypeMap(Code.class, CodeDTO.class);
+        typeMap.addMappings(mapper -> mapper.using(groupToGroupId).map(Code::getGroup, CodeDTO::setGroupId));
+
         return modelMapper;
     }
 }
