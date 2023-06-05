@@ -36,8 +36,10 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional
     public GroupDTO createGroup(GroupDTO groupDTO) {
+        log.info("Creating a new group with name: {}", groupDTO.getName());
         Group group = new Group(groupDTO);
         Group createdGroup = groupRepository.save(group);
+        log.info("Successfully created group with id: {}", createdGroup.getId());
         return modelMapper.map(createdGroup, GroupDTO.class);
     }
 
@@ -50,8 +52,10 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional(readOnly = true)
     public GroupDTO getGroup(Long id) {
+        log.info("Retrieving group with id: {}", id);
         Group group = groupRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Group not found"));
+        log.info("Successfully retrieved group: {}", group.getName());
         return modelMapper.map(group, GroupDTO.class);
     }
 
@@ -64,10 +68,12 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional
     public GroupDTO updateGroup(GroupDTO groupDTO) {
+        log.info("Updating group with id: {}", groupDTO.getId());
         Group existingGroup = groupRepository.findById(groupDTO.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Group not found"));
         existingGroup.setName(groupDTO.getName());
         Group updatedGroup = groupRepository.save(existingGroup);
+        log.info("Successfully updated group with id: {}", updatedGroup.getId());
         return modelMapper.map(updatedGroup, GroupDTO.class);
     }
 
@@ -79,6 +85,8 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional
     public void deleteGroup(Long id) {
+        log.info("Deleting group with id: {}", id);
         groupRepository.deleteById(id);
+        log.info("Successfully deleted group with id: {}", id);
     }
 }

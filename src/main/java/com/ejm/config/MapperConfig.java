@@ -11,21 +11,30 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * STRICT는 소스 객체와 대상 객체의 속성 이름이 정확히 일치하는 경우에만 ModelMapper에 매핑하도록 지시합니다. 잘못된 매핑을 방지하는 것이 좋습니다.
- * setSkipNullEnabled(true)는 ModelMapper에 null 값을 건너뛰도록 지시합니다. null인 소스 속성은 매핑되지 않습니다.
+ * MapperConfig 클래스는 ModelMapper의 설정을 정의하는 클래스입니다.
+ * ModelMapper는 객체 간의 데이터 매핑을 처리하는 데 사용되며,
+ * 이 설정 클래스를 통해 매핑 전략 및 Null 값을 건너뛰는 옵션을 설정합니다.
  */
 @Configuration
 public class MapperConfig {
+    /**
+     * ModelMapper Bean을 생성하고 설정합니다.
+     * STRICT 매칭 전략은 소스 객체와 대상 객체의 속성 이름이 정확히 일치하는 경우에만 ModelMapper에 매핑하도록 지시합니다.
+     * setSkipNullEnabled(true)는 ModelMapper에 Null 값을 건너뛰도록 지시합니다.
+     * 그룹을 그룹ID로 변환하는 컨버터를 정의하고, 이를 코드와 코드DTO 간의 매핑에 사용합니다.
+     *
+     * @return 설정이 완료된 ModelMapper Bean.
+     */
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         modelMapper.getConfiguration().setSkipNullEnabled(true);
 
-        // define converter
+        // 그룹을 그룹ID로 변환하는 컨버터를 정의합니다.
         Converter<Group, Long> groupToGroupId = context -> context.getSource() == null ? null : context.getSource().getId();
 
-        // add property mapping
+        // 속성 매핑을 추가합니다.
         TypeMap<Code, CodeDTO> typeMap = modelMapper.createTypeMap(Code.class, CodeDTO.class);
         typeMap.addMappings(mapper -> mapper.using(groupToGroupId).map(Code::getGroup, CodeDTO::setGroupId));
 

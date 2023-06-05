@@ -27,7 +27,10 @@ public class GroupController {
      */
     @PostMapping
     public ResponseEntity<GroupDTO> createGroup(@RequestBody GroupDTO groupDTO) {
-        return ResponseEntity.ok(groupService.createGroup(groupDTO));
+        log.info("Received request to create group with name: {}", groupDTO.getName());
+        GroupDTO createdGroup = groupService.createGroup(groupDTO);
+        log.info("Successfully created group with id: {}", createdGroup.getId());
+        return ResponseEntity.ok(createdGroup);
     }
 
     /**
@@ -38,7 +41,10 @@ public class GroupController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<GroupDTO> getGroup(@PathVariable Long id) {
-        return ResponseEntity.ok(groupService.getGroup(id));
+        log.info("Received request to fetch group with id: {}", id);
+        GroupDTO fetchedGroup = groupService.getGroup(id);
+        log.info("Successfully fetched group with id: {}", fetchedGroup.getId());
+        return ResponseEntity.ok(fetchedGroup);
     }
 
     /**
@@ -47,9 +53,13 @@ public class GroupController {
      * @param groupDTO 그룹 DTO. 그룹 ID와 새로운 그룹 이름을 포함해야 합니다.
      * @return 업데이트된 그룹의 DTO.
      */
+
     @PutMapping
     public ResponseEntity<GroupDTO> updateGroup(@RequestBody GroupDTO groupDTO) {
-        return ResponseEntity.ok(groupService.updateGroup(groupDTO));
+        log.info("Received request to update group with id: {}", groupDTO.getId());
+        GroupDTO updatedGroup = groupService.updateGroup(groupDTO);
+        log.info("Successfully updated group with id: {}", updatedGroup.getId());
+        return ResponseEntity.ok(updatedGroup);
     }
 
     /**
@@ -60,7 +70,9 @@ public class GroupController {
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGroup(@PathVariable Long id) {
+        log.info("Received request to delete group with id: {}", id);
         groupService.deleteGroup(id);
+        log.info("Successfully deleted group with id: {}", id);
         return ResponseEntity.ok().build();
     }
 }
