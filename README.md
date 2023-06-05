@@ -105,5 +105,22 @@ CREATE TABLE `code` (
 
 <b>GET http://localhost:8080/api/codes/group/{groupId}</b>
 <p>특정 그룹에 속한 모든 코드를 가져옵니다. 그룹 ID를 URL 경로 변수로 제공해야 합니다.</p>
-
+<p>결과 예시<p>
+  <b>http://localhost:8080/api/codes/group/6</b>
+  <pre>
+  [
+    {
+        "id": 3,
+        "name": "상업 건물",
+        "value": "CB",
+        "groupId": 6
+    },
+    {
+        "id": 4,
+        "name": "아파트",
+        "value": "AP",
+        "groupId": 6
+    }
+]
+  </pre>
 
