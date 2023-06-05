@@ -51,7 +51,7 @@ CREATE TABLE `code` (
 
 <h3>그룹 (Group) APIs</h3>
 
-<b>POST /api/groups</b> 
+<b>POST http://localhost:8080/api/groups</b> 
 <p>새 그룹을 생성합니다. JSON 형식으로 그룹 이름을 요청 본문에 포함해야 합니다.</p>
 <pre>
 {
@@ -59,10 +59,10 @@ CREATE TABLE `code` (
 }
 </pre>
 
-<b>GET /api/groups/{id}</b>
+<b>GET http://localhost:8080/api/groups/{id}</b>
 <p>특정 그룹의 세부 정보를 가져옵니다. 그룹 ID를 URL 경로 변수로 제공해야 합니다.</p>
 
-<b>PUT /api/groups</b>
+<b>PUT http://localhost:8080/api/groups</b>
 <p>기존 그룹의 이름을 업데이트합니다. JSON 형식으로 그룹 ID와 새로운 그룹 이름을 요청 본문에 포함해야 합니다.</p>
 <pre>
 {
@@ -71,12 +71,12 @@ CREATE TABLE `code` (
 }
 </pre>
 
-<b>DELETE /api/groups/{id}</b>
+<b>DELETE http://localhost:8080/api/groups/{id}</b>
 <p>특정 그룹을 삭제합니다. 그룹 ID를 URL 경로 변수로 제공해야 합니다.</p>
 
 <h3>코드 (Code) APIs</h3>
 
-<b>POST /api/codes</b>
+<b>POST http://localhost:8080/api/codes</b>
 <p>새 코드를 생성합니다. JSON 형식으로 코드 이름, 값, 그리고 그룹 ID를 요청 본문에 포함해야 합니다.</p>
 <pre>
 {
@@ -86,10 +86,10 @@ CREATE TABLE `code` (
 }
 </pre>
 
-<b>GET /api/codes/{id}</b>
+<b>GET http://localhost:8080/api/codes/{id}</b>
 <p>특정 코드의 세부 정보를 가져옵니다. 코드 ID를 URL 경로 변수로 제공해야 합니다.</p>
 
-<b>PUT /api/codes</b>
+<b>PUT http://localhost:8080/api/codes</b>
 <p>기존 코드를 업데이트합니다. JSON 형식으로 코드 ID, 새로운 코드 이름, 값, 그리고 그룹 ID를 요청 본문에 포함해야 합니다.</p>
 <pre>
 {
@@ -100,10 +100,10 @@ CREATE TABLE `code` (
 }
 </pre>
 
-<b>DELETE /api/codes/{id}</b>
+<b>DELETE http://localhost:8080/api/codes/{id}</b>
 <p>특정 코드를 삭제합니다. 코드 ID를 URL 경로 변수로 제공해야 합니다.</p>
 
-<b>GET /api/codes/group/{groupId}</b>
+<b>GET http://localhost:8080/api/codes/group/{groupId}</b>
 <p>특정 그룹에 속한 모든 코드를 가져옵니다. 그룹 ID를 URL 경로 변수로 제공해야 합니다.</p>
 
 
